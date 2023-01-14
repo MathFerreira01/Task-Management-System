@@ -14,7 +14,7 @@ const allTaskController = async (req: Request, res: Response) => {
     });
     return res.status(201).json(taskData);
   } catch (error) {
-    return res.status(400).json({ msg: "Error Fetching Tasks" });
+    return res.status(400).json({ message: "Error Fetching Tasks" });
   }
 };
 

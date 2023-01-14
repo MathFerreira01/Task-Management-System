@@ -16,7 +16,7 @@ const createTaskController = async (req: Request, res: Response) => {
       .status(201)
       .json({ message: "Task Registration successfully Completed!" });
   } catch (error) {
-    return res.status(400).json({ msg: "Unsuccessful Task Registration" });
+    return res.status(400).json({ message: "Unsuccessful Task Registration" });
   }
 };
 

@@ -1,68 +1,58 @@
 import { useContext, useState } from "react";
 import { Wrapper, Title, Form, Label, Span } from "./styles";
-import AuthContext from "../../Context/Auth";
+import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 import { Link } from "react-router-dom";
 import ClickButton from "../../Components/Button";
 import Input from "../../Components/Input";
 import { useNavigate } from "react-router-dom";
 
-const initialState = {
-  user: "",
-  password: "",
-};
-
-interface IClient {
-  user: string;
-  password: string;
-}
-
 const Login = () => {
-  const { setToken } = useContext(AuthContext);
-  const [client, setClient] = useState(initialState);
+  const [user, setUser] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const { setToken } = useAuth();
+
   const navigate = useNavigate();
 
-  const Login = ({ user, password }: IClient) => {
-    if (user === "admin" && password === "admin") {
-      return { token: "1234" };
+  const handleSubmit = async (e: SubmitEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        JSON.stringify({ user, password}),
+        {
+          headers: { "Content-type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      setToken({ user, password });
+      setUser("");
+      setPassword("");
+      navigate("/");
+    } catch (error) {
+      console.log("Deu erro");
     }
-    return { error: "Usuário ou senha invalido." };
-  };
-
-  const HandleSubmit = (event: SubmitEvent) => {
-    event.preventDefault();
-
-    const { token } = Login();
-
-    if (token) {
-      setToken(token);
-      return navigate("/");
-    }
-    setClient(initialState);
   };
 
   return (
     <>
       <Wrapper>
         <Title>Log in to access your account</Title>
-        <Form onSubmit={() => HandleSubmit}>
+        <Form>
           <Label>Email</Label>
           <Input
             type="text"
             name="user"
-            value={client.user}
-            onChange={(event) =>
-              setClient({ ...client, user: event.target.value })
-            }
+            value={user}
+            onChange={(event) => setUser(event.target.value)}
           />
           <Label>Password</Label>
           <Input
             type="password"
             name="password"
-            value={client.password}
-            onChange={(event) =>
-              setClient({ ...client, password: event.target.value })
-            }
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
           <Span>
             Do not have an account yet? <Link to="/cadastro">Register</Link>

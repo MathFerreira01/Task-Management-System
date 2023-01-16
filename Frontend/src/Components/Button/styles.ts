@@ -6,7 +6,7 @@ export const Button = styled.button`
   color: rgb(253, 249, 243);
   font-weight: 600;
   text-transform: uppercase;
-  background: #7b7fda;
+  background: #C7A85F;
   border: none;
   border-radius: 3px;
   outline: 0;
@@ -15,6 +15,6 @@ export const Button = styled.button`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-out;
   :hover {
-    background: #7b49da;
+    background: #D6B567;
   }
 `;

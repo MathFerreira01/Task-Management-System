@@ -3,14 +3,14 @@ import AuthProvider from "../Context/Provider";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
-import PrivateRoute from "./Private";
+import ProtectedRoute from "./Private";
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route element={<PrivateRoute />}>
+          <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/login" element={<Login />} />

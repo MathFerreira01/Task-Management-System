@@ -1,13 +1,62 @@
-import { useState, ReactElement } from "react";
-import AuthContext from "./Auth";
+import {
+  useContext,
+  useState,
+  ReactElement,
+  createContext,
+  useEffect,
+} from "react";
+import { auth } from "../services/firebase";
+import {
+  User,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  UserCredential,
+} from "firebase/auth";
 
-const AuthProvider = ({ children }: { children: ReactElement }) => {
-  const [token, setToken] = useState({});
+export interface AuthContextModel {
+  user: User | null;
+  signIn: (email: string, password: string) => Promise<UserCredential>;
+  signUp: (email: string, password: string) => Promise<UserCredential>;
+  logout: () => {};
+}
+
+const UserContext = createContext<AuthContextModel>({} as AuthContextModel);
+
+const AuthContextProvider = ({ children }: { children: ReactElement }) => {
+  const [user, setUser] = useState<User | null>(null);
+
+  const signUp = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const signIn = (email: string, password: string) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const logout = () => {
+    return signOut(auth);
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ token, setToken }}>
+    <UserContext.Provider value={{ signUp, logout, signIn, user }}>
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export default AuthProvider;
+export default AuthContextProvider;
+
+export const useAuth = () => {
+  return useContext(UserContext);
+};

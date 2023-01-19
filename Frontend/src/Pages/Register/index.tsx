@@ -1,7 +1,57 @@
-const Register = () => {
-    return (
-        <div>Register</div>
-    )
-}
+import { useState, FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default Register
+import { Wrapper, Title, Form, Label, Span } from "./styles";
+import ClickButton from "../../Components/Button";
+import Input from "../../Components/Input";
+
+import { useAuth } from "../../Context/Provider";
+
+const Register = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
+  const { signUp } = useAuth();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      await signUp(email, password);
+      try {
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <Wrapper>
+      <Title>Create an Account</Title>
+      <Form onSubmit={handleSubmit}>
+        <Label>Email</Label>
+        <Input
+          type="email"
+          name="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <Label>Password</Label>
+        <Input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <Span>
+          Back to page <Link to="/login">Login.</Link>
+        </Span>
+        <ClickButton children="Register" />
+      </Form>
+    </Wrapper>
+  );
+};
+
+export default Register;

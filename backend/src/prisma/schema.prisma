@@ -2,19 +2,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// connect database
-
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
-}
-
-//schema database Task
-
-model Task {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String
-
-  @@map("tasks")
 }

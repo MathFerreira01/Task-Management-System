@@ -7,18 +7,21 @@ import { Wrapper, Title, Form, Label, Span } from "./styles";
 import ClickButton from "../../Components/Button";
 import Input from "../../Components/Input";
 import { useAuth } from "../../Context/Provider";
+import Loading from "../../Components/Loading";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { user, signIn } = useAuth();
+  const { signIn } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       await signIn(email, password);
       try {
+        setLoading(true);
         navigate("/");
       } catch (error) {
         console.log(error);
@@ -30,7 +33,6 @@ const Login = () => {
 
   return (
     <>
-      <ToastContainer />
       <Wrapper>
         <Title>Log in to access your account</Title>
         <Form onSubmit={handleSubmit}>

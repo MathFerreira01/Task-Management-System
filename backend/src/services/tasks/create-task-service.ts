@@ -8,7 +8,7 @@ const createTaskService = async (params: any) => {
       body: "Task Registration successfully Completed!",
     };
   } catch (error) {
-    return { statusCode: 400, body: "Error Fetching cars" };
+    return { statusCode: 400, body: "Error Fetching tasks" };
   }
 };
 

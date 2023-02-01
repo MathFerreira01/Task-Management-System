@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { routeTask } from "./routes/tasks";
 import express from "express";
 import cors from "cors";
 
@@ -9,6 +10,6 @@ app.route("/").get((req: Request, res: Response) => {
   res.status(200).send({ title: "Task Manager" });
 });
 
-app.use(express.json(), cors());
+app.use(express.json(), cors(), routeTask);
 
 app.listen(PORT, () => console.log("Server is running on PORT 4003"));

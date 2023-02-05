@@ -8,6 +8,10 @@ const createTaskRepository = async (params: any) => {
       name: params.name,
       description: params.description,
       date: new Date(),
+      userID: params.userID,
+    },
+    include: {
+      users: true,
     },
   });
 };

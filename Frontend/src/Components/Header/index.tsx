@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../Context/Provider";
 import { useNavigate } from "react-router-dom";
-import { Hamburger, Logo, Menu, MenuLink, Nav, ButtonLogout } from "./styles";
+import { Hamburger, Logo, Menu, MenuLink, Nav } from "./styles";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -15,16 +15,15 @@ const Header = () => {
 
   return (
     <Nav>
-      <Logo>Task Manager</Logo>
+      <Logo>TASK MANAGER</Logo>
       <Hamburger onClick={() => setIsOpen(!isOpen)}>
         <span />
         <span />
         <span />
       </Hamburger>
       <Menu isOpen={isOpen}>
-        <MenuLink to="/users">Users</MenuLink>
-        <MenuLink to="/ramdom-dog">Profile</MenuLink>
-        <ButtonLogout children="Logout" onClick={handleLogout} />
+        <MenuLink to="/login">Sign In</MenuLink>
+
       </Menu>
     </Nav>
   );

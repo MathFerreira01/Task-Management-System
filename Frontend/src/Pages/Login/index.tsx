@@ -1,13 +1,10 @@
 import { FormEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-
-import { Wrapper, Title, Form, Label, Span } from "./styles";
+import { useNavigate } from "react-router-dom";
+import { Wrapper, Title, Form, Label, Span, MenuLink } from "./styles";
 
 import ClickButton from "../../Components/Button";
 import Input from "../../Components/Input";
 import { useAuth } from "../../Context/Provider";
-import Loading from "../../Components/Loading";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -34,7 +31,7 @@ const Login = () => {
   return (
     <>
       <Wrapper>
-        <Title>Log in to access your account</Title>
+        <Title>Sign in to access your account</Title>
         <Form onSubmit={handleSubmit}>
           <Label>Email</Label>
           <Input
@@ -51,7 +48,7 @@ const Login = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
           <Span>
-            Do not have an account yet? <Link to="/register">Register</Link>
+            Do not have an account yet? <MenuLink to="/register">Register</MenuLink>
           </Span>
           <ClickButton children="Login" />
         </Form>

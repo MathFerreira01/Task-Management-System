@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.section`
     width: 100vw;
@@ -18,18 +19,23 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-    color: #76787a;
+    color: #E9E9F2;
     padding-bottom: 5px;
 `;
 
 export const Span = styled.span`
-    padding-top: 1em;
-    color: #76787a;
+    padding-bottom: 1.5em;
+    color: #7A7A7A;
     text-align: center;
+`;
+
+export const MenuLink = styled(Link)`
+    color: #636AF2;
+    text-decoration: none;
 `;
 
 export const Title = styled.h2`
     font-weight: normal;
-    color: #2a2a29;
+    color: #E9E9F2;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `;

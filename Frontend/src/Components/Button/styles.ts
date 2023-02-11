@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const Button = styled.button`
   max-width: 100%;
   padding: 11px 13px;
-  color: rgb(253, 249, 243);
+  color: #E9E9F2;
   font-weight: 600;
   text-transform: uppercase;
-  background: #C7A85F;
+  background: #636AF2;
   border: none;
   border-radius: 3px;
   outline: 0;
@@ -15,6 +15,6 @@ export const Button = styled.button`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-out;
   :hover {
-    background: #D6B567;
+    background: #2F3273;
   }
 `;

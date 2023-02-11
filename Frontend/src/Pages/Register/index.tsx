@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { Wrapper, Title, Form, Label, Span } from "./styles";
+import { Wrapper, Title, Form, Label, Span, MenuLink } from "./styles";
 import ClickButton from "../../Components/Button";
 import Input from "../../Components/Input";
 
@@ -46,7 +46,7 @@ const Register = () => {
           onChange={(event) => setPassword(event.target.value)}
         />
         <Span>
-          Back to page <Link to="/login">Login.</Link>
+          Do you have an account? <MenuLink to="/login">Sign in.</MenuLink>
         </Span>
         <ClickButton children="Register" />
       </Form>

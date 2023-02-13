@@ -7,10 +7,11 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { user } = useAuth();
+  console.log(user)
 
   const handleLogout = async () => {
     logout();
-    navigate("/login");
   };
 
   return (
@@ -22,8 +23,13 @@ const Header = () => {
         <span />
       </Hamburger>
       <Menu isOpen={isOpen}>
-        <MenuLink to="/login">Sign In</MenuLink>
-
+        {user ? (
+          <MenuLink to="/" onClick={handleLogout}>
+            Logout
+          </MenuLink>
+        ) : (
+          <MenuLink to="/login">Sign In</MenuLink>
+        )}
       </Menu>
     </Nav>
   );

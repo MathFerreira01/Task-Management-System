@@ -19,7 +19,7 @@ const Login = () => {
       await signIn(email, password);
       try {
         setLoading(true);
-        navigate("/");
+        navigate("/dashboard");
       } catch (error) {
         console.log(error);
       }

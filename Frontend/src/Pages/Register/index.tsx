@@ -1,56 +1,75 @@
 import { useState, FormEvent } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-import { Wrapper, Title, Form, Label, Span, MenuLink } from "./styles";
+import {
+  Wrapper,
+  Title,
+  Form,
+  Label,
+  Span,
+  MessageError,
+  MenuLink,
+} from "./styles";
 import ClickButton from "../../Components/Button";
 import Input from "../../Components/Input";
-
-import { useAuth } from "../../Context/Provider";
+import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { signUp } = useAuth();
 
-  const handleSubmit = async (e: FormEvent) => {
+  const { signup } = useAuth();
+
+  const handleSignup = (e: FormEvent) => {
     e.preventDefault();
-    try {
-      await signUp(email, password);
-      try {
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-      }
-    } catch (error) {
-      console.log(error);
+
+    if (!email || !password) {
+      setError("Preencha todos os campos");
+      return;
     }
+
+    const res = signup(email, password);
+
+    if (res) {
+      setError(res);
+      return;
+    }
+
+    toast.success("Usuário cadatrado com sucesso!");
+    navigate("/login");
   };
 
   return (
-    <Wrapper>
-      <Title>Create an Account</Title>
-      <Form onSubmit={handleSubmit}>
-        <Label>Email</Label>
-        <Input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <Label>Password</Label>
-        <Input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <Span>
-          Do you have an account? <MenuLink to="/login">Sign in.</MenuLink>
-        </Span>
-        <ClickButton children="Register" />
-      </Form>
-    </Wrapper>
+    <>
+      <ToastContainer />
+      <Wrapper>
+        <Title>Create an Account</Title>
+        <Form onSubmit={handleSignup}>
+          <Label>Email</Label>
+          <Input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Label>Password</Label>
+          <Input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <MessageError>{error}</MessageError>
+          <Span>
+            Do you have an account? <MenuLink to="/login">Sign in.</MenuLink>
+          </Span>
+          <ClickButton children="Register" />
+        </Form>
+      </Wrapper>
+    </>
   );
 };
 

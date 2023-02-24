@@ -12,15 +12,13 @@ model task {
   name        String
   description String
   date        DateTime
-  users       user     @relation(fields: [userID], references: [id])
+  users       client   @relation(fields: [userID], references: [id])
   userID      String   @db.ObjectId
 }
 
-model user {
+model client {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   username String
   email    String @unique
   task     task[]
 }
-
-

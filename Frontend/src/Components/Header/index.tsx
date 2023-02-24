@@ -1,18 +1,14 @@
 import { useState } from "react";
-import { useAuth } from "../../Context/Provider";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 import { Hamburger, Logo, Menu, MenuLink, Nav } from "./styles";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { logout } = useAuth();
-  const { user } = useAuth();
-  console.log(user)
 
-  const handleLogout = async () => {
-    logout();
-  };
+  const { signout } = useAuth();
+  const { signed } = useAuth();
 
   return (
     <Nav>
@@ -23,8 +19,8 @@ const Header = () => {
         <span />
       </Hamburger>
       <Menu isOpen={isOpen}>
-        {user ? (
-          <MenuLink to="/" onClick={handleLogout}>
+        {signed ? (
+          <MenuLink to="/" onClick={() => [signout(), navigate("/")]}>
             Logout
           </MenuLink>
         ) : (

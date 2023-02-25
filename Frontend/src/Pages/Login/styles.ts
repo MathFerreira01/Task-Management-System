@@ -23,8 +23,14 @@ export const Label = styled.label`
     padding-bottom: 5px;
 `;
 
+export const MessageError = styled.p`
+  font-size: 0.9em;
+  color: #bd0b20;
+  text-align: center;
+`;
+
 export const Span = styled.span`
-    padding-bottom: 1.5em;
+    padding-top: 0.8em;
     color: #7A7A7A;
     text-align: center;
 `;

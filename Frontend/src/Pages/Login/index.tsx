@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Wrapper, Title, Form, Label, Span, MenuLink } from "./styles";
+import {
+  Wrapper,
+  Title,
+  Form,
+  Label,
+  MessageError,
+  Span,
+  MenuLink,
+} from "./styles";
 
 import ClickButton from "../../Components/Button";
 import Input from "../../Components/Input";
@@ -14,7 +22,8 @@ const Login = () => {
 
   const { signin } = useAuth();
 
-  const handleLogin = () => {
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
     if (!email || !password) {
       setError("Preencha todos os campos");
       return;
@@ -49,6 +58,7 @@ const Login = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
+          <MessageError>{error}</MessageError>
           <Span>
             Do not have an account yet?{" "}
             <MenuLink to="/register">Register</MenuLink>

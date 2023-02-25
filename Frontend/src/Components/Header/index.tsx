@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../Hooks/useAuth";
 import { Hamburger, Logo, Menu, MenuLink, Nav } from "./styles";
+
+import useAuth from "../../Hooks/useAuth";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

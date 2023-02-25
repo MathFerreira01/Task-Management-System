@@ -27,7 +27,7 @@ export const Span = styled.span`
   color: #76787a;
   padding-bottom: 5px;
   text-align: center;
-  padding-bottom: 1.5em;
+  padding-top: 0.8em;
 `;
 
 export const MessageError = styled.p`

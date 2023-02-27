@@ -30,7 +30,6 @@ export const Nav = styled.div`
   flex-wrap: wrap;
   background: #636af2;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;

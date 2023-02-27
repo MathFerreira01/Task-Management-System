@@ -1,12 +1,15 @@
 import Header from "../../Components/Header";
 
-const Dashboard = () => {
+const Profile = () => {
   return (
     <>
       <Header />
-      <div>Dashboard</div>
+
+      <div>
+        Teste
+      </div>
     </>
   );
 };
 
-export default Dashboard;
+export default Profile;

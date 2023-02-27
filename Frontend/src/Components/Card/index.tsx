@@ -1,23 +1,20 @@
-import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import { Container } from "./styles";
 
-const CardTask = () => {
+const CardTask = ({name, description}) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Container>
       <CardContent>
-        <h2>Lizard</h2>
-        <p>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </p>
+        <h2>{name}</h2>
+        <p>{description}</p>
       </CardContent>
       <CardActions>
         <Button size="small">Edit</Button>
         <Button size="small">Delete</Button>
       </CardActions>
-    </Card>
+    </Container>
   );
 };
 

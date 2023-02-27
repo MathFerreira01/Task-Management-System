@@ -27,7 +27,7 @@ const Header = () => {
       <Menu isOpen={isOpen}>
         {signed ? (
           <>
-            <MenuLink to="/dashboard">Dashboard</MenuLink>
+            <MenuLink to="/dashboard">Tasks</MenuLink>
             <MenuLink to="/profile">Profile</MenuLink>
             <MenuLink to="/" onClick={handleLogout}>
               Logout

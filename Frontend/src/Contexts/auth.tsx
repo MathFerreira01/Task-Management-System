@@ -1,4 +1,8 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, ReactNode } from "react";
+
+interface Children {
+  children: ReactNode;
+}
 
 interface ContextData {
   user: null;
@@ -8,9 +12,15 @@ interface ContextData {
   signout: () => void;
 }
 
-const AuthContext = createContext<ContextData>({});
+const AuthContext = createContext<ContextData>({
+  user: null,
+  signed: false,
+  signin: () => {},
+  signup: () => {},
+  signout: () => {},
+});
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }: Children) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {

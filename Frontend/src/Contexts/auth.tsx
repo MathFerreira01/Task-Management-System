@@ -1,6 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 
-const AuthContext = createContext({});
+interface ContextData {
+  user: null;
+  signed: boolean;
+  signin: (email: string, password: string) => void;
+  signup: (username: string, email: string, password: string) => void;
+  signout: () => void;
+}
+
+const AuthContext = createContext<ContextData>({});
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -11,7 +19,7 @@ const AuthProvider = ({ children }) => {
 
     if (userToken && usersStorage) {
       const hasUser = JSON.parse(usersStorage)?.filter(
-        (user) => user.email === JSON.parse(userToken).email
+        (user: { email: string }) => user.email === JSON.parse(userToken).email
       );
 
       if (hasUser) setUser(hasUser[0]);
@@ -21,7 +29,9 @@ const AuthProvider = ({ children }) => {
   const signin = (email: string, password: string) => {
     const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
 
-    const hasUser = usersStorage?.filter((user) => user.email === email);
+    const hasUser = usersStorage?.filter(
+      (user: { email: string }) => user.email === email
+    );
 
     if (hasUser?.length) {
       if (hasUser[0].email === email && hasUser[0].password === password) {
@@ -37,10 +47,12 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = (email: string, password: string) => {
+  const signup = (username: string, email: string, password: string) => {
     const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
 
-    const hasUser = usersStorage?.filter((user) => user.email === email);
+    const hasUser = usersStorage?.filter(
+      (user: { email: string }) => user.email === email
+    );
 
     if (hasUser?.length) {
       return "Já tem uma conta com esse E-mail";
@@ -49,9 +61,9 @@ const AuthProvider = ({ children }) => {
     let newUser;
 
     if (usersStorage) {
-      newUser = [...usersStorage, { email, password }];
+      newUser = [...usersStorage, { username, email, password }];
     } else {
-      newUser = [{ email, password }];
+      newUser = [{ username, email, password }];
     }
 
     localStorage.setItem("users_bd", JSON.stringify(newUser));

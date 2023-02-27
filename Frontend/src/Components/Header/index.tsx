@@ -11,6 +11,11 @@ const Header = () => {
   const { signout } = useAuth();
   const { signed } = useAuth();
 
+  const handleLogout = () => {
+    signout();
+    navigate("/");
+  };
+
   return (
     <Nav>
       <Logo>TASK MANAGER</Logo>
@@ -21,9 +26,13 @@ const Header = () => {
       </Hamburger>
       <Menu isOpen={isOpen}>
         {signed ? (
-          <MenuLink to="/" onClick={() => [signout(), navigate("/")]}>
-            Logout
-          </MenuLink>
+          <>
+            <MenuLink to="/dashboard">Dashboard</MenuLink>
+            <MenuLink to="/profile">Profile</MenuLink>
+            <MenuLink to="/" onClick={handleLogout}>
+              Logout
+            </MenuLink>
+          </>
         ) : (
           <MenuLink to="/login">Sign In</MenuLink>
         )}

@@ -13,6 +13,13 @@ export const MenuLink = styled(Link)`
   &:hover {
     background: #2f3273;
   }
+
+  @media (max-width: 1024px) {
+    &:hover {
+      background-color: transparent;
+      color: #2F3273;
+    }
+  }
 `;
 
 export const Nav = styled.div`

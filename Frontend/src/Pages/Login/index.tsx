@@ -36,7 +36,7 @@ const Login = () => {
       return;
     }
 
-    navigate("/dashboard");
+    navigate("/tasks");
   };
 
   return (

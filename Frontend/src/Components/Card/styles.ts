@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.section`
   max-width: 345px;
+  height: 170px;
   background-color: transparent;
   color: #E9E9F2;
   border-radius: 5px;

@@ -11,7 +11,7 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Tasks />} />
+          <Route path="/tasks" element={<Tasks />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/" element={<Home />} />

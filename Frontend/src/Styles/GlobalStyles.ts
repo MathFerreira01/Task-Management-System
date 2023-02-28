@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle `
     body, html {
         background: #0D0D0D;
         height: 100%;
+        overflow-x: hidden;
     }
 `
 export default GlobalStyle;

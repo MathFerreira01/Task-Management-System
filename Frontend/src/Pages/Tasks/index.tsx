@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 
 import CardTask from "../../Components/Card";
 import Header from "../../Components/Header";
@@ -14,6 +14,14 @@ import {
   Wrapper,
 } from "./styles";
 import ClickButton from "../../Components/Button";
+import getAllUsers from "../../services/Users/get-all-users";
+import { toast } from "react-toastify";
+
+interface user {
+  id: string;
+  username: string;
+  email: string;
+}
 
 const initialState = {
   id: "",
@@ -25,11 +33,24 @@ const initialState = {
 
 const Tasks = () => {
   const [task, setTask] = useState(initialState);
+  const [users, setUsers] = useState<user[]>([]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     console.log(task);
   };
+
+  const getUsers = async () => {
+    const response = await getAllUsers();
+    if (response.erro) {
+      console.log(response.error);
+    }
+    setUsers(response);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   const tasks = [
     {
@@ -91,10 +112,18 @@ const Tasks = () => {
           </ContainerTextfield>
           <ContainerTextfield>
             <Label>User</Label>
-            <SelectField label="Age">
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+            <SelectField
+              label="Age"
+              value={task.userId}
+              onChange={(event) =>
+                setTask({ ...task, userId: event.target.value as string })
+              }
+            >
+              {users.map((user) => (
+                <MenuItem key={user.id} value={user.id}>
+                  {user.username}
+                </MenuItem>
+              ))}
             </SelectField>
           </ContainerTextfield>
           <ContainerTextfield>

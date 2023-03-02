@@ -8,10 +8,10 @@ const updateTaskRepository = async (id: string, params: any) => {
       id: id,
     },
     data: {
-        name: params.name,
-        description: params.description,
-        date: new Date(),
-        userID: params.userID,
+      name: params.name,
+      description: params.description,
+      date: params.date,
+      userID: params.userID,
     },
     include: {
       users: true,

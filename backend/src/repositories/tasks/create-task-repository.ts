@@ -7,7 +7,7 @@ const createTaskRepository = async (params: any) => {
     data: {
       name: params.name,
       description: params.description,
-      date: new Date(),
+      date: params.date,
       userID: params.userID,
     },
     include: {

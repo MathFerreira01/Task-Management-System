@@ -4,18 +4,19 @@ import CardTask from "../../Components/Card";
 import Header from "../../Components/Header";
 import Input from "../../Components/Input";
 import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+
 import {
   Container,
   ContainerTextfield,
   Form,
   Label,
-  SelectField,
   Title,
   Wrapper,
 } from "./styles";
+
 import ClickButton from "../../Components/Button";
 import getAllUsers from "../../services/Users/get-all-users";
-import { toast } from "react-toastify";
 
 interface user {
   id: string;
@@ -112,8 +113,13 @@ const Tasks = () => {
           </ContainerTextfield>
           <ContainerTextfield>
             <Label>User</Label>
-            <SelectField
-              label="Age"
+            <Select
+              style={{
+                height: "46px",
+                background: "#212121",
+                marginBottom: "0.9em",
+                color: "#e9e9f2",
+              }}
               value={task.userId}
               onChange={(event) =>
                 setTask({ ...task, userId: event.target.value as string })
@@ -124,7 +130,7 @@ const Tasks = () => {
                   {user.username}
                 </MenuItem>
               ))}
-            </SelectField>
+            </Select>
           </ContainerTextfield>
           <ContainerTextfield>
             <ClickButton>Send</ClickButton>

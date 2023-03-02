@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import Select from "@mui/material/Select";
 
 export const Wrapper = styled.div`
   margin: 2em auto;
   width: 1425px;
   border-radius: 5px;
-  background-color: #4D4D4C;
+  background-color: #4d4d4c;
 
   @media (max-width: 1500px) {
     width: 1070px;
@@ -50,13 +49,6 @@ export const ContainerTextfield = styled.div`
 export const Label = styled.label`
   color: #e9e9f2;
   padding-bottom: 5px;
-`;
-
-export const SelectField = styled(Select)`
-  height: 46px;
-  background-color: #212121;
-  color: #e9e9f2;
-  margin-bottom: 0.9em;
 `;
 
 export const Container = styled.section`

@@ -8,12 +8,12 @@ datasource db {
 }
 
 model task {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
-  date        String
-  users       client @relation(fields: [userID], references: [id])
-  userID      String @db.ObjectId
+  date        DateTime @default(now())
+  users       client   @relation(fields: [userID], references: [id])
+  userID      String   @db.ObjectId
 }
 
 model client {

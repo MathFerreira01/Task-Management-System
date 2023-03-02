@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.section`
   max-width: 345px;
-  height: 170px;
+  height: 100%;
   background-color: transparent;
-  color: #E9E9F2;
+  color: #e9e9f2;
   border-radius: 5px;
-  border: 1px solid #777DF2;
+  border: 1px solid #777df2;
 `;

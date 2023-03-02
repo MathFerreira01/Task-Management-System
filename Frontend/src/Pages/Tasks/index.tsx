@@ -18,20 +18,8 @@ import {
 import ClickButton from "../../Components/Button";
 import getAllUsers from "../../services/Users/get-all-users";
 import getAllTasks from "../../services/Tasks/get-all-tasks";
-
-interface user {
-  id: string;
-  username: string;
-  email: string;
-}
-
-interface task {
-  id: string;
-  name: string;
-  description: string;
-  date: string;
-  userId: string;
-}
+import task from "../../Components/interface/ITask";
+import user from "../../Components/interface/IUser";
 
 const initialState = {
   id: "",
@@ -134,13 +122,15 @@ const Tasks = () => {
         </Form>
       </Wrapper>
       <Container>
-        {dataTask.map((task) => (
+        {dataTask.map((task, index) => (
           <CardTask
-            key={task.id}
+            key={index}
+            id={task.id}
             name={task.name}
             description={task.description}
             date={task.date}
-            user={task.userId}
+            userId={task.userId}
+            users={task.users}
           />
         ))}
       </Container>

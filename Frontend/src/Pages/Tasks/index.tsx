@@ -17,11 +17,20 @@ import {
 
 import ClickButton from "../../Components/Button";
 import getAllUsers from "../../services/Users/get-all-users";
+import getAllTasks from "../../services/Tasks/get-all-tasks";
 
 interface user {
   id: string;
   username: string;
   email: string;
+}
+
+interface task {
+  id: string;
+  name: string;
+  description: string;
+  date: string;
+  userId: string;
 }
 
 const initialState = {
@@ -34,11 +43,20 @@ const initialState = {
 
 const Tasks = () => {
   const [task, setTask] = useState(initialState);
+  const [dataTask, setDataTask] = useState<task[]>([]);
   const [users, setUsers] = useState<user[]>([]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     console.log(task);
+  };
+
+  const getTasks = async () => {
+    const response = await getAllTasks();
+    if (response.erro) {
+      console.log(response.error);
+    }
+    setDataTask(response);
   };
 
   const getUsers = async () => {
@@ -50,31 +68,9 @@ const Tasks = () => {
   };
 
   useEffect(() => {
-    getUsers();
+    getUsers(), getTasks();
   }, []);
 
-  const tasks = [
-    {
-      id: 1,
-      name: "teste",
-      description: "fazer todas as atividades da faculdade e estudar por 1h.",
-    },
-    {
-      id: 2,
-      name: "teste",
-      description: "fazer todas as atividades da faculdade e estudar por 1h.",
-    },
-    {
-      id: 3,
-      name: "teste",
-      description: "fazer todas as atividades da faculdade e estudar por 1h.",
-    },
-    {
-      id: 4,
-      name: "teste",
-      description: "fazer todas as atividades da faculdade e estudar por 1h.",
-    },
-  ];
   return (
     <>
       <Header />
@@ -138,11 +134,13 @@ const Tasks = () => {
         </Form>
       </Wrapper>
       <Container>
-        {tasks.map((task) => (
+        {dataTask.map((task) => (
           <CardTask
             key={task.id}
             name={task.name}
             description={task.description}
+            date={task.date}
+            user={task.userId}
           />
         ))}
       </Container>

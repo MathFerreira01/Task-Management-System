@@ -1,7 +1,7 @@
-interface user {
+interface IUser {
   id: string;
   username: string;
   email: string;
 }
 
-export default user;
+export default IUser;

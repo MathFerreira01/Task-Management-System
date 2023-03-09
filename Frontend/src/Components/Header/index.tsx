@@ -10,6 +10,7 @@ const Header = () => {
 
   const { signout } = useAuth();
   const { signed } = useAuth();
+  const { user } = useAuth();
 
   const handleLogout = () => {
     signout();

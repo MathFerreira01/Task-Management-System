@@ -1,4 +1,4 @@
-import { FormEvent, useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 
 import CardTask from "../../Components/Card";
 import Header from "../../Components/Header";
@@ -17,9 +17,10 @@ import {
 
 import ClickButton from "../../Components/Button";
 import getAllUsers from "../../services/Users/get-all-users";
-import getAllTasks from "../../services/Tasks/get-all-tasks";
-import task from "../../Components/interface/ITask";
-import user from "../../Components/interface/IUser";
+import getAllTasks from "../../services/Tasks/all-tasks";
+import IUser from "../../interface/IUser";
+import createTaskService from "../../services/Tasks/create-task";
+import ITask from "../../interface/ITask";
 
 const initialState = {
   id: "",
@@ -31,12 +32,18 @@ const initialState = {
 
 const Tasks = () => {
   const [task, setTask] = useState(initialState);
-  const [dataTask, setDataTask] = useState<task[]>([]);
-  const [users, setUsers] = useState<user[]>([]);
+  const [dataTask, setDataTask] = useState<ITask[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
 
-  const handleSubmit = (event: FormEvent) => {
+  const createTask = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(task);
+    const response = await createTaskService(task);
+
+    if (response.error) {
+      console.log(response.error);
+      return;
+    }
+    console.log(response.message);
   };
 
   const getTasks = async () => {
@@ -64,7 +71,7 @@ const Tasks = () => {
       <Header />
       <Wrapper>
         <Title>Register Your New Task</Title>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={createTask}>
           <ContainerTextfield>
             <Label>Task</Label>
             <Input

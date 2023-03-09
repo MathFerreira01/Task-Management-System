@@ -4,10 +4,16 @@ interface Children {
   children: ReactNode;
 }
 
+interface UserProps {
+  username: string;
+  email: string;
+  password: string;
+}
+
 interface ContextData {
-  user: null;
+  user: null | UserProps;
   signed: boolean;
-  signin: (email: string, password: string) => void;
+  signin: (username: string, email: string, password: string) => void;
   signup: (username: string, email: string, password: string) => void;
   signout: () => void;
 }
@@ -36,7 +42,7 @@ const AuthProvider = ({ children }: Children) => {
     }
   }, []);
 
-  const signin = (email: string, password: string) => {
+  const signin = (email: string, password: string, username: string) => {
     const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
 
     const hasUser = usersStorage?.filter(
@@ -46,8 +52,11 @@ const AuthProvider = ({ children }: Children) => {
     if (hasUser?.length) {
       if (hasUser[0].email === email && hasUser[0].password === password) {
         const token = Math.random().toString(36).substring(2);
-        localStorage.setItem("user_token", JSON.stringify({ email, token }));
-        setUser({ email, password });
+        localStorage.setItem(
+          "user_token",
+          JSON.stringify({ email, token, username })
+        );
+        setUser({ email, password, username });
         return;
       } else {
         return "E-mail ou senha incorretos";

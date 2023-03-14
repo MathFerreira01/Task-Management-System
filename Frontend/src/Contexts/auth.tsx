@@ -1,17 +1,12 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
+import IUserAuth from "../interface/IUserAuth";
 
 interface Children {
   children: ReactNode;
 }
 
-interface UserProps {
-  username: string;
-  email: string;
-  password: string;
-}
-
 interface ContextData {
-  user: null | UserProps;
+  user: null | IUserAuth;
   signed: boolean;
   signin: (username: string, email: string, password: string) => void;
   signup: (username: string, email: string, password: string) => void;
@@ -27,7 +22,7 @@ const AuthContext = createContext<ContextData>({
 });
 
 const AuthProvider = ({ children }: Children) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUserAuth | null>(null);
 
   useEffect(() => {
     const userToken = localStorage.getItem("user_token");
@@ -43,7 +38,7 @@ const AuthProvider = ({ children }: Children) => {
   }, []);
 
   const signin = (email: string, password: string, username: string) => {
-    const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
+    const usersStorage = JSON.parse(localStorage.getItem("users_bd") as string);
 
     const hasUser = usersStorage?.filter(
       (user: { email: string }) => user.email === email
@@ -67,7 +62,7 @@ const AuthProvider = ({ children }: Children) => {
   };
 
   const signup = (username: string, email: string, password: string) => {
-    const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
+    const usersStorage = JSON.parse(localStorage.getItem("users_bd") as string);
 
     const hasUser = usersStorage?.filter(
       (user: { email: string }) => user.email === email
